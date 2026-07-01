@@ -1,4 +1,7 @@
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import ProjectLayout from "@/components/ProjectLayout";
+import { demoUrls, githubUrls } from "@/lib/demo-urls";
 import { Globe, Server, Layers } from "lucide-react";
 
 const techDetails = [
@@ -20,6 +23,8 @@ const techDetails = [
 ];
 
 export default function MemoryGlobePage() {
+  const liveUrl = demoUrls["memory-globe"];
+
   return (
     <ProjectLayout
       title="Memory Globe"
@@ -63,73 +68,65 @@ export default function MemoryGlobePage() {
         </div>
       </section>
 
-      {/* Three.js Canvas 嵌入区 */}
+      {/* 在线 Demo */}
       <section>
-        <div className="mb-6">
-          <h2 className="text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">
-            3D Globe Canvas
-          </h2>
-          <p className="mt-2 text-base leading-[1.25] text-apple-gray">
-            将本地 Three.js 地球代码嵌入下方容器
-          </p>
-        </div>
-
-        {/*
-          ┌─────────────────────────────────────────┐
-          │  嵌入接口：在此处 import 并渲染 3D 地球   │
-          │  例：<MemoryGlobeCanvas />               │
-          └─────────────────────────────────────────┘
-        */}
-        <div
-          id="memory-globe-canvas-slot"
-          className="relative overflow-hidden rounded-[2rem] border border-black/[0.06] bg-gradient-to-b from-sky-50/50 via-white to-blue-50/30 shadow-sm"
-        >
-          <div className="relative flex min-h-[520px] items-center justify-center md:min-h-[640px]">
-            {/* 加载骨架屏 */}
-            <div className="flex flex-col items-center gap-8">
-              {/* 地球骨架 */}
-              <div className="relative">
-                <div className="h-48 w-48 animate-shimmer rounded-full md:h-56 md:w-56" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="animate-globe-spin h-40 w-40 rounded-full border border-sky-200/60 md:h-48 md:w-48">
-                    <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-sky-300/40 to-transparent" />
-                    <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-gradient-to-r from-transparent via-sky-300/40 to-transparent" />
-                  </div>
-                </div>
-                <Globe
-                  size={32}
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sky-400/60"
-                  strokeWidth={1.5}
-                />
-              </div>
-
-              {/* 城市标签骨架 */}
-              <div className="flex gap-3">
-                {["长沙", "武汉", "广州"].map((city) => (
-                  <span
-                    key={city}
-                    className="rounded-full border border-black/[0.06] bg-white/80 px-4 py-1.5 text-[12px] font-medium text-apple-gray backdrop-blur-md"
-                  >
-                    {city}
-                  </span>
-                ))}
-              </div>
-
-              {/* 加载提示 */}
-              <div className="text-center">
-                <p className="text-sm font-medium leading-[1.25] text-apple-gray">
-                  Three.js Canvas 渲染容器
-                </p>
-                <p className="mt-2 text-[12px] leading-[1.25] text-apple-gray/70">
-                  嵌入锚点 ·{" "}
-                  <code className="rounded-md bg-black/[0.04] px-1.5 py-0.5 font-mono text-[11px]">
-                    #memory-globe-canvas-slot
-                  </code>
-                </p>
-              </div>
-            </div>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">
+              Live Demo
+            </h2>
+            <p className="mt-2 text-base leading-[1.25] text-apple-gray">
+              无需本地环境，直接在浏览器中体验 3D 地球
+            </p>
           </div>
+          {liveUrl && (
+            <Link
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-apple-black px-5 py-2.5 text-[13px] font-medium text-white transition-opacity duration-300 hover:opacity-80"
+            >
+              全屏打开
+              <ExternalLink size={14} />
+            </Link>
+          )}
         </div>
+
+        {liveUrl ? (
+          <div
+            id="memory-globe-canvas-slot"
+            className="overflow-hidden rounded-[2rem] border border-black/[0.06] bg-black shadow-sm"
+          >
+            <iframe
+              src={liveUrl}
+              title="Memory Globe 3D Demo"
+              className="h-[min(80vh,720px)] w-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <div
+            id="memory-globe-canvas-slot"
+            className="relative flex min-h-[520px] items-center justify-center overflow-hidden rounded-[2rem] border border-black/[0.06] bg-gradient-to-b from-sky-50/50 via-white to-blue-50/30 shadow-sm md:min-h-[640px]"
+          >
+            <p className="text-sm text-apple-gray">Demo 部署中…</p>
+          </div>
+        )}
+
+        {githubUrls["memory-globe"] && (
+          <p className="mt-4 text-center text-[12px] text-apple-gray">
+            源码 ·{" "}
+            <Link
+              href={githubUrls["memory-globe"]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 transition-colors hover:text-apple-black"
+            >
+              GitHub
+            </Link>
+          </p>
+        )}
       </section>
     </ProjectLayout>
   );

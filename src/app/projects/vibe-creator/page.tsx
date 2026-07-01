@@ -1,4 +1,5 @@
 import ProjectLayout from "@/components/ProjectLayout";
+import LiveDemoBanner from "@/components/LiveDemoBanner";
 import { Camera, Radio, Music, Sparkles } from "lucide-react";
 
 const techStack = [
@@ -28,6 +29,8 @@ export default function VibeCreatorPage() {
       title="Vibe Creator"
       subtitle="多模态 AI 场景音乐投票系统"
     >
+      <LiveDemoBanner projectSlug="vibe-creator" label="打开在线 Demo" />
+
       {/* 项目定位 */}
       <section className="mb-16 animate-fade-up opacity-0">
         <h2 className="mb-4 text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">

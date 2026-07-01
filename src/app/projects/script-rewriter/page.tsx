@@ -1,4 +1,5 @@
 import ProjectLayout from "@/components/ProjectLayout";
+import LiveDemoBanner from "@/components/LiveDemoBanner";
 import { FileText, Wand2 } from "lucide-react";
 
 const novelExcerpt = `林晚秋推开那扇斑驳的木门，一股陈年的檀香味扑面而来。
@@ -36,6 +37,8 @@ export default function ScriptRewriterPage() {
       title="Script Rewriter"
       subtitle="LLM 文本结构化工具 · Novel-to-Script Conversion"
     >
+      <LiveDemoBanner projectSlug="script-rewriter" label="打开在线 Demo" />
+
       {/* 项目定位 */}
       <section className="mb-16 animate-fade-up opacity-0">
         <h2 className="mb-4 text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">
