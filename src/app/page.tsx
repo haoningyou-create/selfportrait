@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import MirrorLinks from "@/components/MirrorLinks";
 import { projects } from "@/lib/projects";
 
 export default function Home() {
@@ -151,10 +152,11 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-black/[0.06] px-6 py-10 md:px-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <p className="text-sm leading-[1.25] text-apple-gray">
             © 2026 尤浩宁 · Haoning You
           </p>
+          <MirrorLinks />
           <p className="text-sm leading-[1.25] text-apple-gray">
             Built with Next.js & Tailwind CSS
           </p>
