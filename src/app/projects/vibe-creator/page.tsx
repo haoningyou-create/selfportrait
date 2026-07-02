@@ -1,6 +1,8 @@
+import Link from "next/link";
+import { ExternalLink, Camera, Radio, Music, Sliders, QrCode, Users } from "lucide-react";
 import ProjectLayout from "@/components/ProjectLayout";
 import LiveDemoBanner from "@/components/LiveDemoBanner";
-import { Camera, Radio, Music, Sparkles } from "lucide-react";
+import { demoUrls, githubUrls } from "@/lib/demo-urls";
 
 const techStack = [
   {
@@ -23,13 +25,33 @@ const techStack = [
   },
 ];
 
+const tutorialSteps = [
+  {
+    icon: Sliders,
+    title: "调节 Vibe 滑块",
+    description: "拖动中间珍珠质感滑块，在 Breeze / Warm-Up / Bumpy 三档氛围间切换。",
+  },
+  {
+    icon: QrCode,
+    title: "扫码参与投票",
+    description: "右侧卡片生成二维码，好友扫码进入 H5 页面，从 6 种预设风格中投票。",
+  },
+  {
+    icon: Users,
+    title: "应用群体共识",
+    description: "点击「应用共识到 Vibe 滑块」，将群友投票结果同步到主屏氛围参数。",
+  },
+];
+
 export default function VibeCreatorPage() {
+  const liveUrl = demoUrls["vibe-creator"];
+
   return (
     <ProjectLayout
       title="Vibe Creator"
       subtitle="多模态 AI 场景音乐投票系统"
     >
-      <LiveDemoBanner projectSlug="vibe-creator" label="打开在线 Demo" />
+      <LiveDemoBanner projectSlug="vibe-creator" label="全屏打开 Demo" />
 
       {/* 项目定位 */}
       <section className="mb-16 animate-fade-up opacity-0">
@@ -42,7 +64,7 @@ export default function VibeCreatorPage() {
       </section>
 
       {/* 核心技术 */}
-      <section className="mb-20">
+      <section className="mb-16">
         <h2 className="mb-8 text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">
           核心技术
         </h2>
@@ -68,97 +90,93 @@ export default function VibeCreatorPage() {
         </div>
       </section>
 
-      {/* Demo 嵌入区 */}
-      <section>
-        <div className="mb-6 flex items-center justify-between">
-          <div>
-            <h2 className="text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">
-              Interactive Demo
-            </h2>
-            <p className="mt-2 text-base leading-[1.25] text-apple-gray">
-              将本地交互 Demo 组件嵌入下方区域
-            </p>
-          </div>
-          <Sparkles size={18} className="text-apple-gray" strokeWidth={1.5} />
-        </div>
-
-        {/*
-          ┌─────────────────────────────────────────┐
-          │  嵌入接口：在此处 import 并渲染你的 Demo   │
-          │  例：<VibeCreatorDemo />                  │
-          └─────────────────────────────────────────┘
-        */}
-        <div
-          id="vibe-creator-demo-slot"
-          className="relative overflow-hidden rounded-[2rem] border border-black/[0.06] bg-gradient-to-br from-violet-50/80 via-white to-purple-50/60 shadow-sm"
-        >
-          {/* 流线型装饰背景 */}
-          <div className="pointer-events-none absolute inset-0">
-            <svg
-              className="absolute -right-20 -top-20 h-[400px] w-[400px] opacity-[0.07]"
-              viewBox="0 0 400 400"
-              fill="none"
+      {/* 使用教程 */}
+      <section className="mb-16">
+        <h2 className="mb-8 text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">
+          快速上手
+        </h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {tutorialSteps.map((step, i) => (
+            <div
+              key={step.title}
+              className="rounded-3xl border border-black/[0.04] bg-white p-7 shadow-sm"
             >
-              <path
-                d="M0 200C100 100 200 300 400 200"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="text-violet-600"
-              />
-              <path
-                d="M0 250C150 150 250 350 400 250"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="text-purple-400"
-              />
-            </svg>
-          </div>
-
-          {/* Mockup 播放器占位 */}
-          <div className="relative flex min-h-[480px] flex-col items-center justify-center p-8 md:min-h-[560px] md:p-12">
-            {/* 播放器 UI 骨架 */}
-            <div className="w-full max-w-lg">
-              <div className="glass-card rounded-3xl border border-black/[0.04] p-8 shadow-sm backdrop-blur-md">
-                <div className="mb-8 flex items-center justify-center">
-                  <div className="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-violet-100 to-purple-50 shadow-inner">
-                    <Music
-                      size={36}
-                      className="text-violet-400"
-                      strokeWidth={1.5}
-                    />
-                    <div className="absolute inset-0 animate-pulse-soft rounded-full border border-violet-200/50" />
-                  </div>
-                </div>
-
-                <div className="mb-6 space-y-2 text-center">
-                  <div className="mx-auto h-4 w-40 animate-shimmer rounded-full" />
-                  <div className="mx-auto h-3 w-28 animate-shimmer rounded-full" />
-                </div>
-
-                {/* 进度条 */}
-                <div className="mb-6 h-1 overflow-hidden rounded-full bg-black/[0.04]">
-                  <div className="h-full w-1/3 rounded-full bg-gradient-to-r from-violet-400 to-purple-400" />
-                </div>
-
-                {/* 控制按钮 */}
-                <div className="flex items-center justify-center gap-6">
-                  <div className="h-10 w-10 rounded-full bg-black/[0.04]" />
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-apple-black shadow-md">
-                    <div className="ml-0.5 h-0 w-0 border-y-[8px] border-l-[14px] border-y-transparent border-l-white" />
-                  </div>
-                  <div className="h-10 w-10 rounded-full bg-black/[0.04]" />
-                </div>
+              <div className="mb-4 flex items-center gap-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-100 text-[12px] font-bold text-violet-600">
+                  {i + 1}
+                </span>
+                <step.icon size={18} className="text-apple-gray" strokeWidth={1.5} />
               </div>
-
-              <p className="mt-8 text-center text-[13px] leading-[1.25] text-apple-gray">
-                Demo 组件嵌入区 ·{" "}
-                <code className="rounded-md bg-black/[0.04] px-1.5 py-0.5 font-mono text-[11px]">
-                  #vibe-creator-demo-slot
-                </code>
+              <h3 className="mb-2 text-base font-bold leading-[1.25] text-apple-black">
+                {step.title}
+              </h3>
+              <p className="text-sm leading-[1.25] text-apple-gray">
+                {step.description}
               </p>
             </div>
-          </div>
+          ))}
         </div>
+      </section>
+
+      {/* 在线 Demo */}
+      <section>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="text-[13px] font-semibold uppercase tracking-[0.2em] text-apple-gray">
+              Live Demo
+            </h2>
+            <p className="mt-2 text-base leading-[1.25] text-apple-gray">
+              国内可直接访问，无需本地环境
+            </p>
+          </div>
+          {liveUrl && (
+            <Link
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-apple-black px-5 py-2.5 text-[13px] font-medium text-white transition-opacity duration-300 hover:opacity-80"
+            >
+              全屏体验
+              <ExternalLink size={14} />
+            </Link>
+          )}
+        </div>
+
+        {liveUrl ? (
+          <div
+            id="vibe-creator-demo-slot"
+            className="overflow-hidden rounded-[2rem] border border-black/[0.06] bg-gradient-to-br from-violet-950 via-purple-950 to-black shadow-sm"
+          >
+            <iframe
+              src={liveUrl}
+              title="Vibe Creator Interactive Demo"
+              className="h-[min(80vh,720px)] w-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; camera"
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <div
+            id="vibe-creator-demo-slot"
+            className="flex min-h-[480px] items-center justify-center rounded-[2rem] border border-black/[0.06] bg-gradient-to-br from-violet-50/80 via-white to-purple-50/60 shadow-sm"
+          >
+            <p className="text-sm text-apple-gray">Demo 部署中…</p>
+          </div>
+        )}
+
+        {githubUrls["vibe-creator"] && (
+          <p className="mt-4 text-center text-[12px] text-apple-gray">
+            源码 ·{" "}
+            <Link
+              href={githubUrls["vibe-creator"]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 transition-colors hover:text-apple-black"
+            >
+              GitHub
+            </Link>
+          </p>
+        )}
       </section>
     </ProjectLayout>
   );
